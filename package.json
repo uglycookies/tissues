@@ -9,11 +9,11 @@
   },
   "author": "Julia, Chris, Manjeet",
   "license": "ISC",
-	"bugs": {
+  "bugs": {
     "url": "https://github.com/uglycookies/tissues/issues"
   },
   "homepage": "https://github.com/uglycookies/tissues#readme",
-	"scripts": {
+  "scripts": {
     "start": "node src/server/index.js",
     "build": "webpack --mode production",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
@@ -23,9 +23,12 @@
   "dependencies": {
     "express": "^4.16.3",
     "moment": "^2.22.2",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react-dom": "^16.3.1",
+    "sequelize": "^4.38.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -53,5 +56,4 @@
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.3"
   }
-
 }
