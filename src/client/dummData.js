@@ -7,23 +7,23 @@ console.log(new Intl.DateTimeFormat('en-US').format(javaScriptRelease));
 
 export const openIssues = [
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('17 July 2018 00:12:00 GMT')),
+		date:'17 July 2018 00:12:00 GMT',
 	 	count:3
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('18 July 2018 00:12:00 GMT')),
+		date:'18 July 2018 00:12:00 GMT',
 	 	count:4
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('19 July 2018 00:12:00 GMT')),
+		date:'19 July 2018 00:12:00 GMT',
 	 	count:10
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('20 July 2018 00:12:00 GMT')),
+		date:'20 July 2018 00:12:00 GMT',
 	 	count:3
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('21 July 2018 00:12:00 GMT')),
+		date:'21 July 2018 00:12:00 GMT',
 	 	count:14
 	},
 ]
@@ -31,23 +31,23 @@ export const openIssues = [
 
 export const closedIssues = [
 	{
-		date:new Date('17 July 2018 00:12:00 GMT'),
-	 	count:3
+		date:'17 July 2018 00:12:00 GMT',
+		count:3
 	},
 	{
-		date:new Date('18 July 2018 00:12:00 GMT'),
-	 	count:4
+		date:'18 July 2018 00:12:00 GMT',
+		count:4
 	},
 	{
-		date:new Date('19 July 2018 00:12:00 GMT'),
-	 	count:10
+		date:'19 July 2018 00:12:00 GMT',
+		count:10
 	},
 	{
-		date:new Date('20 July 2018 00:12:00 GMT'),
-	 	count:3
+		date:'20 July 2018 00:12:00 GMT',
+		count:3
 	},
 	{
-		date:new Date('21 July 2018 00:12:00 GMT'),
-	 	count:14
-	},
+		date:'21 July 2018 00:12:00 GMT',
+		count:14
+	}
 ]
