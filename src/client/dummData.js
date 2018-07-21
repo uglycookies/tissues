@@ -7,47 +7,87 @@ console.log(new Intl.DateTimeFormat('en-US').format(javaScriptRelease));
 
 export const openIssues = [
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('17 July 2018 00:12:00 GMT')),
-	 	count:3
+		start:new Intl.DateTimeFormat('en-US').format(new Date('17 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('17 July 2018 00:12:00 GMT')),
+	 	count:3,
+		type: 'Visual',
+		description: 'some description of Visual bug',
+		open: true
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('18 July 2018 00:12:00 GMT')),
-	 	count:4
+		start:new Intl.DateTimeFormat('en-US').format(new Date('18 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('18 July 2018 00:12:00 GMT')),
+	 	count:4,
+		type: 'Functional',
+		description: 'some description of Functional bug',
+		open: true
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('19 July 2018 00:12:00 GMT')),
-	 	count:10
+		start:new Intl.DateTimeFormat('en-US').format(new Date('19 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('19 July 2018 00:12:00 GMT')),
+	 	count:10,
+		type: 'Performance',
+		description: 'some description of Performance bug',
+		open: true
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('20 July 2018 00:12:00 GMT')),
-	 	count:3
+		start:new Intl.DateTimeFormat('en-US').format(new Date('20 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('20 July 2018 00:12:00 GMT')),
+	 	count:3,
+		type: 'Technical',
+		description: 'some description of Technical bug',
+		open: true
 	},
 	{
-		date:new Intl.DateTimeFormat('en-US').format(new Date('21 July 2018 00:12:00 GMT')),
-	 	count:14
+		start:new Intl.DateTimeFormat('en-US').format(new Date('21 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('21 July 2018 00:12:00 GMT')),
+	 	count:14,
+		type: 'Other',
+		description: 'some description of Other bug',
+		open: true
 	},
 ]
 
 
 export const closedIssues = [
 	{
-		date:new Date('17 July 2018 00:12:00 GMT'),
-	 	count:3
+		start:new Intl.DateTimeFormat('en-US').format(new Date('17 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('17 July 2018 00:12:00 GMT')),
+		count:3,
+		type: 'Technical',
+		description: 'some description of Visual bug',
+		open: false
 	},
 	{
-		date:new Date('18 July 2018 00:12:00 GMT'),
-	 	count:4
+		start:new Intl.DateTimeFormat('en-US').format(new Date('18 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('18 July 2018 00:12:00 GMT')),
+		count:4,
+		type: 'Performance',
+		description: 'some description of Functional bug',
+		open: false
 	},
 	{
-		date:new Date('19 July 2018 00:12:00 GMT'),
-	 	count:10
+		start:new Intl.DateTimeFormat('en-US').format(new Date('19 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('19 July 2018 00:12:00 GMT')),
+		count:10,
+		type: 'Other',
+		description: 'some description of Performance bug',
+		open: false
 	},
 	{
-		date:new Date('20 July 2018 00:12:00 GMT'),
-	 	count:3
+		start:new Intl.DateTimeFormat('en-US').format(new Date('20 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('20 July 2018 00:12:00 GMT')),
+		count:3,
+		type: 'Functional',
+		description: 'some description of Technical bug',
+		open: false
 	},
 	{
-		date:new Date('21 July 2018 00:12:00 GMT'),
-	 	count:14
+		start:new Intl.DateTimeFormat('en-US').format(new Date('21 June 2018 00:12:00 GMT')),
+		end:new Intl.DateTimeFormat('en-US').format(new Date('21 July 2018 00:12:00 GMT')),
+		count:14,
+		type: 'Visual',
+		description: 'some description of Other bug',
+		open: false
 	},
 ]

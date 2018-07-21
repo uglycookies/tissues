@@ -21,6 +21,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "d3-array": "^1.2.1",
+    "d3-scale": "^2.1.0",
     "express": "^4.16.3",
     "moment": "^2.22.2",
     "pg": "^7.4.3",
