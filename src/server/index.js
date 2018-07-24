@@ -54,7 +54,7 @@ app.use(bodyParser.json());
 app.post('/api/signup', async (req, res) => {
   try {
     const { username, password, domain } = req.body;
-    console.log('*********************', req.body)
+    // console.log('*********************', req.body)
     if (!username || !password || !domain) throw new Error('Must submit all fields');
     const foundClient = await Client.findOne({ where: { username } });
     if (foundClient) throw new Error('User already exists');
@@ -68,13 +68,17 @@ app.post('/api/signup', async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
   try {
+    console.log('running index.js')
     const { username, password } = req.body;
     const foundClient = await Client.findOne({ where: { username, password } });
-    if (!foundClient) throw new Error('Incorrect username or password');
-    res.json(foundClient);
+    if (!foundClient) {
+      res.send("Invalid username or password");
+    } //throw new Error('Incorrect username or password');
+    // res.json(foundClient);
+    res.redirect('/api/issues');
   } catch (error) {
     console.log(error);
-    res.json({});
+    res.send({});
   }
 });
 

@@ -9,10 +9,9 @@ import { ButtonContainer } from './components/ButtonContainer';
 
 let appStyle = {
 	fontFamily: 'Helvetica',
-	// backgroundColor: '#f4f4f2'
 }
 
-class Dashboard extends React.Component{
+export class Dashboard extends React.Component{
 	constructor(props) {
     super()
 			this.state = {};
@@ -33,6 +32,7 @@ handleClick=(e)=>{
 	render(){
 		let dataList = this.state.dataList;
 		return (
+
 		<div style={appStyle}>
 			<Header />
 			<Download />

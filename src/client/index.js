@@ -9,7 +9,6 @@ export default class Index extends React.Component {
       <div>
         <h1> Hello World</h1>
         <Login />
-        <OpenIssues />
       </div>
     );
   }

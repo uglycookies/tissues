@@ -1,5 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
+import { Dashboard } from './dashboard';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+
 
 export default class Login extends React.Component {
   state = {
@@ -30,7 +38,13 @@ export default class Login extends React.Component {
         username: this.state.username,
         password: this.state.password,
       })
-        .then(response => this.setState({ userInfo: response.data, showDashboard: true }))
+        .then(response => {
+        if (response.data === "Invalid username or password") {
+          this.setState({ userInfo: response.data, showDashboard: false });
+        } else {
+          this.setState({ userInfo: response.data, showDashboard: true })
+        }
+      })
         .catch(e => console.log(e));
     } else {
       Axios.post('http://localhost:8080/api/signup', {
@@ -111,9 +125,16 @@ export default class Login extends React.Component {
               </button>
             </div>
           </div>
-        ) : (
-          <h1>SHOW DASHBOARD</h1>
-        )}
+        ) :
+        (
+          <Router>
+            <div>
+              <Redirect from='/' to='/dashboard'/>
+              <Route path='/dashboard' component={Dashboard}/>
+          </div>
+        </Router>
+        )
+      }
       </div>
     );
   }
