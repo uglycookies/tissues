@@ -1,6 +1,7 @@
 const express = require('express');
 const Sequelize = require('sequelize');
 const bodyParser = require('body-parser');
+const bcryptNodejs = require('bcrypt-nodejs');
 
 const sequelize = new Sequelize('tissuesdb', 'oreo', 'cookie', {
   host: 'localhost',
@@ -50,34 +51,106 @@ app.use(bodyParser.json());
 /**
  * Routes
  */
-app.post('/api/signup', async (req, res) => {
-  try {
-    const { username, password, domain } = req.body;
-    if (!username || !password || !domain) throw new Error('Must submit all fields');
-    const foundClient = await Client.findOne({ where: { username } });
-    if (foundClient) throw new Error('User already exists');
-    const newClient = await Client.create({ username, password, domain });
-    res.json(newClient);
-  } catch (error) {
-    console.log(error);
-    res.json({ error });
-  }
-});
+// app.post('/api/signup', async (req, res) => {
+//   try {
+//     const { username, password, domain } = req.body;
+//     if (!username || !password || !domain) return Error('Must submit all fields');
+//     const foundClient = await Client.findOne({ where: { username } });
+//     console.log("LEARN TO FKING LISTEN TO ME AND ONLY MAKE ONE ACT", foundClient);
+//     if (foundClient) throw new Error('User already exists');
+//     bcryptNodejs.hash(req.body.password, null, null, function(err, hash) {
+//       const newClient = new Client({ username: username, password: hash, domain: domain });
+//       console.log('THIS IS MY MOTHER FKING CLIENT, DEAL WITH IT', newClient);
+//       res.json(newClient);
+//     })
+//     // const newClient = await Client.create({ username, password, domain });
+//     // console.log('THIS IS MY NEW CLIENT NOW MAKE IT DAMNIT', newClient);
+//     // res.json(newClient);
+//   } catch (error) {
+//     console.log(error);
+//     res.json({ error });
+//   }
+// });
 
-app.post('/api/login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const foundClient = await Client.findOne({ where: { username, password } });
-    if (!foundClient) throw new Error('Incorrect username or password');
-    res.json(foundClient);
-  } catch (error) {
-    console.log(error);
-    res.json({});
-  }
-});
+app.post('/api/signup', 
+  function(req, res){
+    var username = req.body.username;
+    var domain = req.body.domain;
+
+    bcryptNodejs.hash(req.body.password, null, null, function(err, hash) {
+      var client = new Client({ username: username, password: hash, domain: domain })
+      client.save().then(function(newClient) {
+        console.log("Successfully added " + username + " to the database biatch!");
+        res.json(client);
+        // req.session.regenerate(function(){
+        //   res.redirect()
+        // })
+      })
+    })
+  });
+
+// app.post('/api/login', async (req, res) => {
+//   try {
+//     // console.log('running index.js')
+//     const { username, password } = req.body;
+      //const username = req.body.username
+//     const foundClient = await Client.findOne({ where: { username, password } });
+//     if (!foundClient) {
+//       res.send("Invalid username or password");
+//     } //throw new Error('Incorrect username or password');
+//     res.json(foundClient);
+//   } catch (error) {
+//     console.log(error);
+//     res.send({});
+//   }
+// });
+
+app.post('/api/login', 
+  function(req, res){
+    var username = req.body.username;
+    var password = req.body.password;
+
+    // bcryptNodejs.hash(password, null, null, function(err, hash) {
+    //   var client = new Client({ username: username, password: hash })
+      
+    //   var foundClient = Client.findOne({ where: { username, password }});
+    //   if (!foundClient) {
+    //     throw Error("Invalid username or password");
+    //   }
+    //   res.json(foundClient);
+    //   });
+    // do a hash and then just see if they're the same instead of using this shit
+    let newOne = new Client({ username: username })
+    let testing = function(found){
+      if(Client.findOne({ where: { username, password }})) {
+        console.log("This username does exist in the database");
+        bcryptNodejs.compare(password, found.get('password'), function(err, res) {
+          if(res){
+            console.log("HELL YEAH, THIS WORKS");
+            const foundClient = Client.findOne({ where: { username, password } });
+            if (!foundClient) {
+              console.log("THIS IS A REALLY WEIRD ERROR MAN");
+            }
+            res.send(foundClient);
+          } else {
+            console.log("LEARN TO ENTER THE CORRECT PASSWORD!!");
+            res.redirect('/api/signup');
+          }
+        })
+      } else {
+        console.log("YOU DEFINITELY HAVE A BAD USERNAME");
+        res.redirect('/api/signup');
+      };
+      if(err) {
+        return error;
+      }
+    }
+    testing();
+  });
 
 app.get('/api/issues', async (req, res) => {
   try {
+    // render dashboard.html page instead of just showing the issues in JSON format
     const issues = await Issue.findAll({});
     res.json(issues);
   } catch (error) {
@@ -88,12 +161,19 @@ app.get('/api/issues', async (req, res) => {
 
 app.post('/api/issues', async (req, res) => {
   try {
-    const { email, description, type } = req.body;
-    const domain = req.get('origin');
+    // const { description, type } = req.body;
+    const description = req.body.description;
+    const type = req.body.issue_type;
+    const email = req.body.user_email;
+    console.log('THIS IS MY TYPE AND YOU HAD BETTER SHOW IT!', type);
+    const domain = req.headers.ref;
     const client = await Client.find({ where: { domain } });
 
     // client does not exist
-    if (!client) throw new Error('Unauthorized domain');
+    if (!client) () => {
+      console.log('THIS IS THE DOMAIN', domain);
+      throw new Error('Unauthorized domain');
+    }
 
     const user = await User.findOrCreate({ where: { email } });
     const issue = Issue.build({

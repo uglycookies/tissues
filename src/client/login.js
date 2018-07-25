@@ -26,23 +26,27 @@ export default class Login extends React.Component {
   };
 
   createRequest = (login) => {
-    console.log(login);
     if (!login) {
       Axios.post('http://localhost:8080/api/login', {
         username: this.state.username,
         password: this.state.password,
       })
-        .then(response => this.setState({ userInfo: response.data, showDashboard: true }))
+        .then(response => {
+        if (response.data === "Invalid username or password") {
+          this.setState({ userInfo: response.data, showDashboard: false });
+        } else {
+        this.setState({ userInfo: response.data, showDashboard: true })
+        }
+      })
         .catch(e => console.log(e));
     } else {
-      console.log('hi');
       Axios.post('http://localhost:8080/api/signup', {
         username: this.state.username,
         password: this.state.password,
         domain: this.state.domain,
       })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.setState({ userInfo: response.data, showDashboard: true });
         })
         .catch(e => console.log(e));
