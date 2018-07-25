@@ -3,7 +3,7 @@ const React = require('react');
 let style = {
   position: 'absolute',
   width: '100%',
-  top: '360px',
+  top: '420px',
   display: 'flex',
   justifyContent: 'center',
 }
@@ -17,7 +17,6 @@ state={issueStatus:'open'}
 
 
   render() {
-    console.log(this.state, 'current state');
     return(
       <div className='buttons' style={style}>
         <button id='openIssueButton' onClick={(e)=>this.props.handleClick(e)} key={0} name="open" style={{height: '50px', width: '400px', fontSize: '30px'}}>OPEN</button>

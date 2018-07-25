@@ -2,7 +2,7 @@ const React = require('react');
 
 let downloadDiv = {
   position: 'absolute',
-  marginTop:'230px',
+  marginTop:'200px',
   left: '5%',
   right: '5%',
   display: 'flex',
@@ -24,7 +24,9 @@ export class Download extends React.Component {
   render() {
     return (
       <div key={0} id='download' style={downloadDiv}>
+      <a href={'/api/download'}>
         <button key={1} style={buttonStyle}>{'DOWNLOAD LIBRARY'} </button>
+        </a>
       </div>
     )
   }

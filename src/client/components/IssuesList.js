@@ -15,7 +15,7 @@ export class IssuesList extends React.Component {
     let dataList = this.props.dataList;
     let issues = [];
     dataList.forEach(row => {
-      issues.push(<IssueContainer key={dataList.indexOf(row)} issueStatus={row.open} data={row} type={row.type} start={row.start} end={row.end} description={row.description}/>);
+      issues.push(<IssueContainer key={dataList.indexOf(row)} issueStatus={row.status} data={row} type={row.type} start={row.start} end={row.end} description={row.description}/>);
     })
     return issues;
   }

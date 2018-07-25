@@ -94,14 +94,19 @@ app.get('/api/issues', async (req, res) => {
 
 app.post('/api/issues', async (req, res) => {
   try {
-    const { description, type } = req.body;
-    let email = req.body.user_email;
-    // console.log(req.body, 'REQUEST BODY');
-    const domain = req.headers.referer;
+    // const { description, type } = req.body;
+    const description = req.body.description;
+    const type = req.body.issue_type;
+    const email = req.body.user_email;
+    console.log('THIS IS MY TYPE AND YOU HAD BETTER SHOW IT!', type);
+    const domain = req.headers.ref;
     const client = await Client.find({ where: { domain } });
-    console.log('CLIENT IS FOUND!', client)
+
     // client does not exist
-    if (!client) throw new Error('Unauthorized domain');
+    if (!client) () => {
+      console.log('THIS IS THE DOMAIN', domain);
+      throw new Error('Unauthorized domain');
+    }
 
     const user = await User.findOrCreate({ where: { email } });
     const issue = Issue.build({
@@ -113,9 +118,34 @@ app.post('/api/issues', async (req, res) => {
     res.json(savedIssue);
   } catch (error) {
     console.log(error);
-    res.json({ error });
+    res.json({});
   }
 });
+
+// app.post('/api/issues', async (req, res) => {
+//   try {
+//     const { description, type } = req.body;
+//     let email = req.body.user_email;
+//     // console.log(req.body, 'REQUEST BODY');
+//     const domain = req.headers.referer;
+//     const client = await Client.find({ where: { domain } });
+//     console.log('CLIENT IS FOUND!', client)
+//     // client does not exist
+//     if (!client) throw new Error('Unauthorized domain');
+//
+//     const user = await User.findOrCreate({ where: { email } });
+//     const issue = Issue.build({
+//       description,
+//       type,
+//       userId: user[0]._id,
+//     });
+//     const savedIssue = await issue.save();
+//     res.json(savedIssue);
+//   } catch (error) {
+//     console.log(error);
+//     res.json({ error });
+//   }
+// });
 
 app.get('/api/issues/:issuesId', async (req, res) => {
   try {
@@ -126,6 +156,18 @@ app.get('/api/issues/:issuesId', async (req, res) => {
     res.json({});
   }
 });
+
+// app.get('/api/download', async (req, res) => {
+//   try {
+//     fs.readFile('./issues.js', (err, data) => {
+//       res.setHeader( 'Content-Disposition: attachment' );
+//       res.send(data);
+//     })
+//   } catch (error) {
+//     console.log(error);
+//     res.json({});
+//   }
+// });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

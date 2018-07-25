@@ -12,12 +12,15 @@ let issueStyle = {
 }
 export class IssueContainer extends React.Component {
 
-  get statusDate() {
-    return this.props.issueStatus === true ? 'start date' : 'close date';
-  }
-
   get date() {
-    return this.props.issueStatus === true ? this.props.start : this.props.end;
+    let date = {};
+    date.start = this.props.start.slice(0, 10);
+    if(this.props.end !== null) {
+      date.end = this.props.end.slice(0, 10);
+    } else {
+      date.end = this.props.end;
+    }
+    return date;
   }
 
   render() {
@@ -33,9 +36,11 @@ export class IssueContainer extends React.Component {
           {this.props.description}
           </p>
         </div>
-        <div className="date_container" style={{width: '100px'}}>
-          <p>{this.statusDate}</p>
-          <p>{this.date}</p>
+        <div className="startDate_container" style={{width: '100px'}}>
+          <p>{this.date.start}</p>
+        </div>
+        <div className="endDate_container" style={{width: '100px'}}>
+          <p>{this.date.end}</p>
         </div>
       </div>
     )

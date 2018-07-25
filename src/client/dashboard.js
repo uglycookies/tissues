@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Axios from 'axios';
 import { IssuesList } from './components/IssuesList';
 import { openIssues, closedIssues } from './dummData';
 import { Header } from './components/Header';
@@ -17,19 +18,36 @@ export class Dashboard extends React.Component{
 			this.state = {};
 			this.state.open = true;
 			this.state.dataList = [];
+			this.handleClick = this.handleClick.bind(this);
 }
+
 handleClick=(e)=>{
-		console.log('e.target.id', e.target.id)
+	const targetId = e.target.id;
+	Axios.get('http://localhost:8080/api/issues')
+		.then((response)=> {
+			let dataList = response.data;
+			let issuesInProgress = [];
+			let closedIssues = [];
+			dataList.forEach(object => {
+				if(object.status === 'In progress') {
+					issuesInProgress.push(object);
+				} else {
+					closedIssues.push(object);
+				}
+			})
 
-		if(e.target.id === 'openIssueButton'){
-			this.setState({'issueStatus':'open','dataList': openIssues},()=>{
-			});
-		} else {
-			this.setState({'issueStatus':'close', 'dataList':closedIssues
-		})}
+			if(targetId === 'openIssueButton'){
+				this.setState({'issueStatus':'open','dataList': issuesInProgress },()=>{
+				});
+			} else {
+				this.setState({'issueStatus':'close', 'dataList': closedIssues }, ()=>{
+				});
+			}
+		})
 
-}
-	render(){
+  }
+
+	render() {
 		let dataList = this.state.dataList;
 		return (
 
@@ -40,18 +58,19 @@ handleClick=(e)=>{
 			<div id='issue_header' style={{position: 'absolute', marginTop: '450px', display: 'flex',
 		  justifyContent: 'center', width: '100%', position: 'relative', float: 'right'}}>
 				<div>
-					<p style={{width: '100px'}}>{'Issue Type'}</p>
+					<p style={{width: '100px'}}>{'Type'}</p>
 				</div>
 				<div>
 					<p style={{width: '500px', marginLeft: '50px'}}>{'Description'}</p>
 				</div>
 				<div>
-					<p style={{width: '100px'}}>{'Issue Date'}</p>
+					<p style={{width: '100px'}}>{'Reported'}</p>
+				</div>
+				<div>
+					<p style={{width: '100px'}}>{'Completed'}</p>
 				</div>
 			</div>
 			<IssuesList dataList={dataList} issueStatus={this.state.open}  state={this.state}/>
 		</div>)
 	}
 }
-
-ReactDOM.render(<Dashboard />, document.getElementById('app'))

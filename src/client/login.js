@@ -4,6 +4,7 @@ import { Dashboard } from './dashboard';
 
 import {
   BrowserRouter as Router,
+  Switch,
   Route,
   Redirect,
 } from 'react-router-dom';
@@ -129,8 +130,9 @@ export default class Login extends React.Component {
         (
           <Router>
             <div>
-              <Redirect from='/' to='/dashboard'/>
+              <Redirect to='/dashboard'/>
               <Route path='/dashboard' component={Dashboard}/>
+
           </div>
         </Router>
         )
